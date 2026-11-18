@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="logo.png">
+<title>RoboSpark Academy</title>
+<meta name="description" content="RoboSpark Academy — hands-on STEM and Robotics for Grades 3–12 in Ambattur, Chennai.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a night-sky lab — 3D robot hero, rainbow orbit ring as the one bold motif, bands as colour-coded tilting launch cards. Single deliberate dark look (the brand lives in space). */
+:root{
+  color-scheme: dark;
+  --space:#160a45; --space-2:#20105e; --panel:#2a1677; --panel-2:#371c94; --line:#5131b8;
+  --ink:#ffffff; --muted:#ddd3ff; --dim:#b9aaf0; --deep:#1a0b3d;
+  --cyan:#3ff0ff; --magenta:#ff3db8; --sun:#ffd23f; --lime:#9dff5a; --tang:#ff7a29;
+  --b1:#ffb13d; --b2:#3ec9ff; --b3:#ff6bd6;
+  --g1:linear-gradient(135deg,#ffd23f,#ff7a29 55%,#ff4f8b); --g2:linear-gradient(135deg,#7cf7d4,#3ec9ff 50%,#6f8dff); --g3:linear-gradient(135deg,#ffa3ec,#d66bff 50%,#a77bff);
+  --rainbow: linear-gradient(90deg,#3b82f6,#22d3ee,#a3d977,#fcc632,#ff7a1a,#f72585,#8b2cf5);
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--space);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--space)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-0.01em}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;border:0;cursor:pointer;font-family:var(--body);transition:transform .2s ease, box-shadow .2s ease}
+.btn-primary{background:var(--sun);color:#1a1240;box-shadow:0 6px 0 #b8860b}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 0 #b8860b}
+.btn-primary:active{transform:translateY(3px);box-shadow:0 3px 0 #b8860b}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--cyan)}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(22,10,69,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(52,44,116,.6)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:42px;height:42px}
+.brand span{font-family:var(--display);font-weight:700;font-size:19px}
+.brand b{color:var(--sun);font-weight:700}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{text-decoration:none;color:var(--muted);font-weight:600;font-size:15px}
+.nav-links a:hover{color:var(--ink)}
+.nav .btn{min-height:42px;padding:0 18px;font-size:15px}
+@media (max-width:860px){.nav-links{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden}
+.stars{position:absolute;inset:0;pointer-events:none;background:
+ radial-gradient(1.5px 1.5px at 12% 18%,#fff8,transparent),radial-gradient(1px 1px at 28% 72%,#fff6,transparent),
+ radial-gradient(1.5px 1.5px at 46% 30%,#fff7,transparent),radial-gradient(1px 1px at 62% 86%,#fff5,transparent),
+ radial-gradient(1.5px 1.5px at 84% 14%,#fff8,transparent),radial-gradient(1px 1px at 92% 64%,#fff6,transparent),
+ radial-gradient(640px 440px at 78% 38%,rgba(255,61,184,.38),transparent 70%),
+ radial-gradient(520px 400px at 60% 75%,rgba(63,240,255,.28),transparent 70%),
+ radial-gradient(520px 380px at 8% 10%,rgba(255,210,63,.18),transparent 70%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:24px;align-items:center;padding-block:56px 48px}
+.hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0}
+.hero h1{font-size:clamp(42px,6.4vw,78px);line-height:1.02;font-weight:800}
+.hero h1 .glow{background:var(--rainbow);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:34em}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:6px;max-width:560px}
+.stat{border-radius:14px;padding:12px 12px 10px;color:var(--deep)}
+.stat:nth-child(1){background:var(--sun)}.stat:nth-child(2){background:var(--cyan)}.stat:nth-child(3){background:var(--b3)}.stat:nth-child(4){background:var(--lime)}
+.stat strong{display:block;font-family:var(--display);font-size:26px;line-height:1.1}
+.stat span{font-size:13px;font-weight:600;color:var(--deep)}
+.stage{position:relative;aspect-ratio:1/1;max-width:100%;min-height:340px}
+#bot{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
+.stage-fallback{position:absolute;inset:12%;display:flex;align-items:center;justify-content:center}
+.stage-fallback img{width:100%;max-width:420px;filter:drop-shadow(0 20px 60px rgba(240,79,182,.35))}
+.stage-tag{position:absolute;font-family:var(--mono);font-size:12px;color:var(--ink);background:rgba(42,22,119,.9);border:1px solid var(--cyan);padding:6px 10px;border-radius:10px;pointer-events:none;white-space:nowrap}
+.stage-tag i{font-style:normal;color:var(--cyan)}
+.t1{left:2%;top:16%}.t2{right:0;top:58%}.t3{left:8%;bottom:8%}
+@media (max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr);padding-block:36px 28px}.stage{max-width:520px;width:100%;margin:0 auto;order:-1;min-height:300px}}
+@media (max-width:480px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.t2{display:none}}
+
+/* rainbow band + marquee */
+.rainbow-bar{height:8px;background:var(--rainbow)}
+.marquee{overflow:hidden;border-bottom:1px solid var(--line);background:var(--space-2)}
+.marquee-track{display:flex;gap:36px;width:max-content;padding-block:16px;animation:slide 60s linear infinite}
+.marquee-track span{font-family:var(--display);font-size:15px;font-weight:500;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:36px}
+.marquee-track span::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--magenta)}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* sections */
+section.block{padding-block:88px}
+.sec-head{display:flex;flex-direction:column;gap:14px;max-width:760px;margin-bottom:42px}
+.sec-head h2{font-size:clamp(30px,4vw,48px);line-height:1.08;font-weight:700}
+.sec-head p{color:var(--muted);font-size:18px}
+
+/* band cards */
+.bands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;perspective:1100px}
+.band{position:relative;border-radius:24px;padding:26px 24px 24px;background:var(--g);color:var(--deep);transform-style:preserve-3d;transition:transform .25s ease, box-shadow .25s ease;display:flex;flex-direction:column;gap:14px;min-width:0}
+.band:hover{box-shadow:0 30px 60px -18px var(--c)}
+.band .tag{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--deep);font-weight:500;transform:translateZ(30px)}
+.band h3{font-size:24px;line-height:1.15;transform:translateZ(40px)}
+.band .grades{display:inline-flex;align-self:flex-start;font-weight:700;font-size:14px;color:#fff;background:var(--deep);border-radius:999px;padding:4px 12px;transform:translateZ(30px)}
+.band p{color:var(--deep);font-size:16px;font-weight:500;transform:translateZ(20px)}
+.band ol{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;transform:translateZ(25px)}
+.band li{display:flex;gap:10px;align-items:center;font-weight:600;font-size:15px}
+.band li b{font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;background:var(--deep);width:26px;height:22px;border-radius:6px;display:grid;place-items:center;flex:none}
+.band .orb{position:absolute;right:-14px;top:-14px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,rgba(255,255,255,.35) 45%,transparent 72%);opacity:.7;transform:translateZ(60px);pointer-events:none}
+@media (max-width:900px){.bands{grid-template-columns:minmax(0,1fr)}}
+
+/* level explorer */
+.explorer{border:1px solid var(--line);border-radius:24px;background:var(--space-2);overflow:hidden}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;padding:16px;border-bottom:1px solid var(--line)}
+.tab{font-family:var(--body);font-weight:700;font-size:15px;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--c);border-color:var(--c);color:#140d33}
+.levels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0}
+.level{padding:22px 18px 24px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:10px;min-width:0}
+.level:last-child{border-right:0}
+.level .num{font-family:var(--mono);font-size:12px;color:var(--c)}
+.level h4{margin:0;font-family:var(--display);font-size:17px;font-weight:700;line-height:1.2}
+.level .theme{font-size:14px;color:var(--dim)}
+.level ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+.level li{font-size:14px;line-height:1.35;display:flex;gap:8px;align-items:flex-start}
+.level li i{font-style:normal;font-family:var(--mono);font-size:10.5px;padding:2px 5px;border-radius:5px;flex:none;margin-top:1px}
+.level li i.s{background:rgba(207,123,255,.18);color:#e2b8ff}
+.level li i.r{background:rgba(94,231,247,.14);color:var(--cyan)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;padding:14px 18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.legend span{display:flex;gap:8px;align-items:center}
+.legend i{font-style:normal;font-family:var(--mono);font-size:10.5px;padding:2px 5px;border-radius:5px}
+@media (max-width:1000px){.levels{grid-template-columns:repeat(2,minmax(0,1fr))}.level{border-bottom:1px solid var(--line)}.level:nth-child(2n){border-right:0}}
+@media (max-width:560px){.levels{grid-template-columns:minmax(0,1fr)}.level{border-right:0}}
+
+/* class flow */
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:step}
+.step{position:relative;border-radius:var(--r);padding:22px 20px;background:var(--sc);color:var(--deep);display:flex;flex-direction:column;gap:8px;min-width:0}
+.step::before{counter-increment:step;content:"0" counter(step);font-family:var(--display);font-weight:800;font-size:30px;line-height:1;color:var(--deep);opacity:.85}
+.s1{--sc:var(--sun)}.s2{--sc:var(--cyan)}.s3{--sc:var(--b3)}.s4{--sc:var(--lime)}
+.step h3{font-size:19px}
+.step p{color:var(--deep);font-size:15.5px;font-weight:500}
+@media (max-width:900px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.flow{grid-template-columns:minmax(0,1fr)}}
+
+/* why */
+.perks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.perk{border-radius:22px;padding:24px;background:var(--panel);border:2px solid var(--pc);display:flex;flex-direction:column;gap:10px;min-width:0}
+.perk svg{width:52px;height:52px;padding:12px;border-radius:16px;background:var(--pc);stroke:var(--deep)}
+.perk h3{font-size:19px}
+.perk p{color:var(--muted);font-size:16px}
+.p1{--pc:var(--b2)}.p2{--pc:var(--sun)}.p3{--pc:var(--lime)}
+@media (max-width:860px){.perks{grid-template-columns:minmax(0,1fr)}}
+
+/* code peek */
+.code-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;align-items:center}
+.code{border-radius:20px;background:#07051a;border:1px solid var(--line);overflow:hidden;min-width:0}
+.code-top{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--dim)}
+.code-top i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.code pre{margin:0;padding:18px 18px 22px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.65;color:#d9d4ff}
+.code .k{color:#ff8ad8}.code .f{color:var(--cyan)}.code .n{color:var(--sun)}.code .c{color:#7d76ad}
+@media (max-width:900px){.code-wrap{grid-template-columns:minmax(0,1fr)}}
+
+/* visit */
+.visit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px}
+.card{border-radius:24px;padding:28px;background:var(--panel);border:2px solid var(--magenta);display:flex;flex-direction:column;gap:18px;min-width:0}
+.card h3{font-size:22px}
+.addr{font-size:18px;line-height:1.5}
+.phone{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:var(--space-2);border:1.5px solid var(--cyan)}
+.phone strong{font-family:var(--mono);font-size:19px;letter-spacing:.02em;user-select:all}
+.copy{font-family:var(--body);font-weight:700;font-size:14px;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.copy:hover{border-color:var(--cyan)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:600;font-size:14px;color:var(--muted)}
+.field input,.field select{min-height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--space-2);color:var(--ink);padding:0 14px;font-size:16px;font-family:var(--body)}
+.field input:focus,.field select:focus{outline:none;border-color:var(--cyan)}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.note{font-size:14px;color:var(--dim)}
+@media (max-width:900px){.visit{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:420px){.row2{grid-template-columns:minmax(0,1fr)}}
+
+footer{border-top:8px solid transparent;border-image:var(--rainbow) 1;padding-block:28px 36px;color:var(--dim);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+
+/* entrance: starts visible, only lifts slightly */
+.rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.rise.d1{animation-delay:.08s}.rise.d2{animation-delay:.16s}.rise.d3{animation-delay:.24s}
+@keyframes rise{from{transform:translateY(14px)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .marquee-track,.rise{animation:none}
+  .band{transition:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="logo.png" alt="" width="42" height="42"><span>Robo<b>Spark</b></span></a>
+    <div class="nav-links">
+      <a href="#bands">Bands</a>
+      <a href="#why">Why RoboSpark</a>
+      <a href="#visit">Visit us</a>
+    </div>
+    <a class="btn btn-primary" href="#visit">Book free demo</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="stars" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow rise">STEM &amp; Robotics Academy · Ambattur, Chennai</div>
+      <h1 class="rise d1">Build. Code.<br><span class="glow">Invent.</span></h1>
+      <p class="lead rise d2">Hands-on STEM and robotics for Grades 3–12. Every class ends with something your child built, tested and can explain.</p>
+      <div class="cta-row rise d3">
+        <a class="btn btn-primary" href="#visit">Book a free demo class</a>
+        <a class="btn btn-ghost" href="#bands">See the bands</a>
+      </div>
+      <div class="stats rise d3">
+        <div class="stat"><strong>3</strong><span>bands</span></div>
+        <div class="stat"><strong>15</strong><span>levels</span></div>
+        <div class="stat"><strong>6</strong><span>projects a level</span></div>
+        <div class="stat"><strong>3–12</strong><span>grades</span></div>
+      </div>
+    </div>
+    <div class="stage" aria-label="Animated 3D RoboSpark robot. Drag to spin it." role="img">
+      <div class="stage-fallback" id="fallback" hidden><img src="logo.png" alt="RoboSpark logo"></div>
+      <canvas id="bot"></canvas>
+      <div class="stage-tag t1"><i>HC-SR04</i> · distance 24 cm</div>
+      <div class="stage-tag t2"><i>servo.write</i>(90);</div>
+      <div class="stage-tag t3">Level 4 · <i>Bot Buddies</i></div>
+    </div>
+  </div>
+</header>
+
+<div class="rainbow-bar" aria-hidden="true"></div>
+
+<main>
+  <section class="block" id="bands">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Three bands · one journey</div>
+        <h2>Your child starts in their band and climbs one level at a time</h2>
+        <p>Each level runs for about a term and has six hands-on projects. Finish a band and you move up to the next. Visit our lab to see the projects your child will build.</p>
+      </div>
+      <div class="bands" id="bandCards">
+        <article class="band tilt" style="--c:var(--b1);--g:var(--g1)">
+          <div class="orb" aria-hidden="true"></div>
+          <div class="tag">BAND I</div>
+          <h3>Curiosity Cadets</h3>
+          <span class="grades">Grades 3–5</span>
+          <p>Science through play: simple machines, first circuits, and robots coded with blocks.</p>
+          <ol>
+            <li><b>L1</b>Spark Starters</li><li><b>L2</b>Gear Gurus</li><li><b>L3</b>Circuit Sprouts</li><li><b>L4</b>Bot Buddies</li><li><b>L5</b>Mini Mission Makers</li>
+          </ol>
+        </article>
+        <article class="band tilt" style="--c:var(--b2);--g:var(--g2)">
+          <div class="orb" aria-hidden="true"></div>
+          <div class="tag">BAND II</div>
+          <h3>Tech Trailblazers</h3>
+          <span class="grades">Grades 6–8</span>
+          <p>Real electronics, Arduino coding, safety sensors and competition robots.</p>
+          <ol>
+            <li><b>L1</b>Circuit Crafters</li><li><b>L2</b>Code Commanders</li><li><b>L3</b>Sensor Sleuths</li><li><b>L4</b>Robo Rangers</li><li><b>L5</b>Innovation Ignitors</li>
+          </ol>
+        </article>
+        <article class="band tilt" style="--c:var(--b3);--g:var(--g3)">
+          <div class="orb" aria-hidden="true"></div>
+          <div class="tag">BAND III</div>
+          <h3>Future Engineers League</h3>
+          <span class="grades">Grades 9–12</span>
+          <p>Embedded C, IoT, mobile apps, Python and AI, all the way to a CanSat.</p>
+          <ol>
+            <li><b>L1</b>Embedded Architects</li><li><b>L2</b>IoT Voyagers</li><li><b>L3</b>App Alchemists</li><li><b>L4</b>AI Pathfinders</li><li><b>L5</b>Aero &amp; Space Pioneers</li>
+          </ol>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Inside a 90-minute class</div>
+        <h2>Learn it, build it, break it, fix it</h2>
+      </div>
+      <div class="flow">
+        <div class="step s1"><h3>Discover</h3><p>A short demo or question starts the idea: why does a pulley make lifting easier?</p></div>
+        <div class="step s2"><h3>Build</h3><p>Teams of 2–3 put the project together with real parts and tools.</p></div>
+        <div class="step s3"><h3>Test &amp; fix</h3><p>It rarely works first time. Finding the fault is where the real learning happens.</p></div>
+        <div class="step s4"><h3>Show &amp; tell</h3><p>Each team explains what they built and records it in their maker journal.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="why" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Why RoboSpark</div>
+        <h2>Helps with school marks. Prepares for the real world.</h2>
+      </div>
+      <div class="perks-wrap">
+        <div class="perks">
+          <div class="perk p1"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5M14 19c0-2 1.5-3.5 3.5-3.5S21 17 21 19"/></svg><h3>Small batches</h3><p>Only 5–8 students per batch, so every child gets the trainer's attention.</p></div>
+          <div class="perk p2"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg><h3>Certificate every level</h3><p>Plus a showcase where parents see the projects.</p></div>
+          <div class="perk p3"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg><h3>Safe by design</h3><p>Battery and low-voltage projects only. Tools are always supervised.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="block" id="visit" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Visit RoboSpark</div>
+        <h2>Book a free demo class</h2>
+        <p>Visit the lab, meet the trainers and let your child build their first project with us.</p>
+      </div>
+      <div class="visit">
+        <div class="card">
+          <h3>Our centre</h3>
+          <p class="addr">18/9, Kamatchi Street, Lenin Nagar,<br>Oragadam, Ambattur,<br>Chennai – 600053</p>
+          <div class="phone"><strong id="p1">+91 91504 53368</strong><button class="copy" type="button" data-copy="p1">Copy</button></div>
+          <div class="phone"><strong id="p2">+91 76676 62290</strong><button class="copy" type="button" data-copy="p2">Copy</button></div>
+          <p class="note">Call or WhatsApp either number.</p>
+        </div>
+        <form class="card" id="demoForm" novalidate>
+          <h3>Request a demo on WhatsApp</h3>
+          <div class="field"><label for="f-name">Parent's name</label><input id="f-name" name="name" autocomplete="name" required></div>
+          <div class="row2">
+            <div class="field"><label for="f-child">Child's name</label><input id="f-child" name="child"></div>
+            <div class="field"><label for="f-grade">Child's grade</label>
+              <select id="f-grade" name="grade">
+                <option>Grade 3</option><option>Grade 4</option><option>Grade 5</option><option>Grade 6</option><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option>
+              </select></div>
+          </div>
+          <div class="field"><label for="f-time">Preferred day / time</label><input id="f-time" name="time" placeholder="e.g. Saturday morning"></div>
+          <a class="btn btn-primary" id="waBtn" href="https://wa.me/919150453368" target="_blank" rel="noopener" style="align-self:flex-start">Open WhatsApp with this message</a>
+          <p class="note" id="waNote">This opens WhatsApp with your message ready to send. Nothing is sent until you press send there.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="logo.png" alt="" width="34" height="34" style="width:34px;height:34px"><span style="font-size:16px">Robo<b>Spark</b> Academy</span></a>
+    <span>18/9 Kamatchi St, Lenin Nagar, Oragadam, Ambattur, Chennai 600053 · +91 91504 53368 · +91 76676 62290</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* 3D tilt on band cards */
+  if (!reduce && window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll(".tilt").forEach(card => {
+      card.addEventListener("pointermove", e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        card.style.transform = `rotateX(${(-y*12).toFixed(2)}deg) rotateY(${(x*14).toFixed(2)}deg) translateZ(0)`;
+      });
+      card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+    });
+  }
+
+  /* copy phone numbers */
+  document.querySelectorAll(".copy").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const el = document.getElementById(btn.dataset.copy);
+      const done = () => { btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy", 1600); };
+      const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Selected"; setTimeout(() => btn.textContent = "Copy", 1600); };
+      try { navigator.clipboard.writeText(el.textContent).then(done, fallback); } catch(e) { fallback(); }
+    });
+  });
+
+  /* WhatsApp message builder */
+  const form = document.getElementById("demoForm"), wa = document.getElementById("waBtn");
+  function updateWa(){
+    const v = id => document.getElementById(id).value.trim();
+    const lines = ["Hello RoboSpark, I'd like to book a free demo class."];
+    if (v("f-name")) lines.push("Parent: " + v("f-name"));
+    if (v("f-child")) lines.push("Child: " + v("f-child"));
+    lines.push("Grade: " + v("f-grade"));
+    if (v("f-time")) lines.push("Preferred time: " + v("f-time"));
+    wa.href = "https://wa.me/919150453368?text=" + encodeURIComponent(lines.join("\n"));
+  }
+  form.addEventListener("input", updateWa);
+  form.addEventListener("submit", e => e.preventDefault());
+  updateWa();
+
+  /* ---------- 3D robot ---------- */
+  const canvas = document.getElementById("bot"), fallback = document.getElementById("fallback");
+  if (typeof THREE === "undefined") { fallback.hidden = false; canvas.hidden = true; return; }
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); }
+  catch (e) { fallback.hidden = false; canvas.hidden = true; return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+  camera.position.set(0, 0.2, 10.5);
+
+  scene.add(new THREE.HemisphereLight(0xbfb4ff, 0x1a0f3d, 0.75));
+  const key = new THREE.DirectionalLight(0xffffff, 0.9); key.position.set(3, 5, 6); scene.add(key);
+  const pinkL = new THREE.PointLight(0xff3fb4, 1.6, 20); pinkL.position.set(-4.5, 1.5, 3); scene.add(pinkL);
+  const cyanL = new THREE.PointLight(0x22d3ee, 1.4, 20); cyanL.position.set(4.5, -1, 3); scene.add(cyanL);
+
+  const std = (c, o = {}) => new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: 0.35, metalness: 0.25 }, o));
+  const glow = c => new THREE.MeshBasicMaterial({ color: c });
+
+  const world = new THREE.Group(); scene.add(world);
+  const robot = new THREE.Group(); world.add(robot);
+  const head = new THREE.Group(); robot.add(head);
+
+  const skull = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 48), std(0xc22fd6));
+  skull.scale.set(1.3, 1.0, 0.98); head.add(skull);
+  const visor = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 48), std(0x120c30, { roughness: 0.15, metalness: 0.6 }));
+  visor.scale.set(1.0, 0.64, 0.5); visor.position.set(0, -0.02, 0.6); head.add(visor);
+
+  const eyes = [];
+  [-0.38, 0.38].forEach(x => {
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.17, 32, 24), glow(0x7af3ff));
+    eye.position.set(x, 0.08, 1.05); eye.scale.z = 0.5; head.add(eye); eyes.push(eye);
+    const halo = new THREE.Mesh(new THREE.RingGeometry(0.2, 0.26, 40), new THREE.MeshBasicMaterial({ color: 0x5ee7f7, transparent: true, opacity: 0.35 }));
+    halo.position.set(x, 0.08, 1.07); head.add(halo);
+  });
+  const smile = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.035, 12, 40, Math.PI), glow(0x7af3ff));
+  smile.rotation.z = Math.PI; smile.position.set(0, -0.2, 1.05); head.add(smile);
+
+  [-1, 1].forEach(s => {
+    const ear = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 0.26, 40), std(0x7c3aed));
+    ear.rotation.z = Math.PI / 2; ear.position.set(s * 1.3, 0.02, 0); head.add(ear);
+    const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.06, 32), glow(0x5ee7f7));
+    cap.rotation.z = Math.PI / 2; cap.position.set(s * 1.45, 0.02, 0); head.add(cap);
+  });
+  const stalk = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.55, 16), std(0xe5e7eb, { metalness: 0.7 }));
+  stalk.position.set(0, 1.18, 0); head.add(stalk);
+  const star = new THREE.Mesh(new THREE.OctahedronGeometry(0.2, 0), std(0xfcc632, { emissive: 0xfcc632, emissiveIntensity: 0.85, roughness: 0.3 }));
+  star.position.set(0, 1.55, 0); head.add(star);
+  const starLight = new THREE.PointLight(0xfcc632, 0.8, 4); starLight.position.copy(star.position); head.add(starLight);
+
+  const torso = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 32), std(0x5b21b6));
+  torso.scale.set(0.85, 0.62, 0.62); torso.position.set(0, -1.62, -0.05); robot.add(torso);
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.3, 0.32, 24), std(0x9ca3af, { metalness: 0.7 }));
+  neck.position.set(0, -1.0, 0); robot.add(neck);
+  const chest = new THREE.Mesh(new THREE.CircleGeometry(0.17, 40), glow(0xff5fc8));
+  chest.position.set(0, -1.52, 0.57); robot.add(chest);
+  [-1, 1].forEach(s => {
+    const arm = new THREE.Mesh(new THREE.SphereGeometry(0.2, 24, 16), std(0x7c3aed));
+    arm.scale.set(1, 1.5, 1); arm.position.set(s * 0.98, -1.62, 0); robot.add(arm);
+  });
+
+  /* rainbow orbit ring (the logo's ring, in 3D) */
+  const ring = new THREE.Group();
+  const cols = [0x3b82f6, 0x22d3ee, 0xa3d977, 0xfcc632, 0xff7a1a, 0xf72585, 0x8b2cf5];
+  const seg = (Math.PI * 2) / cols.length;
+  cols.forEach((c, i) => {
+    const arc = new THREE.Mesh(new THREE.TorusGeometry(2.55, 0.055, 12, 48, seg + 0.01), glow(c));
+    arc.rotation.z = i * seg; ring.add(arc);
+  });
+  ring.rotation.x = 1.15; ring.rotation.y = -0.25; ring.position.y = -0.35; world.add(ring);
+
+  /* orbiting parts: gear, chip, atom */
+  function gear(){
+    const g = new THREE.Group(), m = std(0xfcc632, { metalness: 0.6, roughness: 0.3 });
+    g.add(new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.08, 10, 28), m));
+    for (let i = 0; i < 8; i++) {
+      const t = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.12, 0.12), m);
+      const a = i / 8 * Math.PI * 2; t.position.set(Math.cos(a) * 0.32, Math.sin(a) * 0.32, 0); t.rotation.z = a; g.add(t);
+    }
+    return g;
+  }
+  function chip(){
+    const g = new THREE.Group();
+    g.add(new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.08, 0.32), std(0x0f766e, { roughness: 0.5 })));
+    const pinM = std(0xd1d5db, { metalness: 0.8 });
+    for (let i = 0; i < 4; i++) [-1, 1].forEach(s => {
+      const p = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.03, 0.08), pinM);
+      p.position.set(-0.16 + i * 0.105, -0.02, s * 0.2); g.add(p);
+    });
+    return g;
+  }
+  function atom(){
+    const g = new THREE.Group();
+    g.add(new THREE.Mesh(new THREE.SphereGeometry(0.09, 16, 12), glow(0xff5fc8)));
+    for (let i = 0; i < 3; i++) {
+      const o = new THREE.Mesh(new THREE.TorusGeometry(0.26, 0.015, 8, 48), glow(0x7af3ff));
+      o.rotation.set(i * 1.05, i * 0.6, 0); g.add(o);
+    }
+    return g;
+  }
+  const orbiters = [
+    { obj: gear(), r: 3.3, speed: 0.35, phase: 0, tilt: 0.5, y: 0.6 },
+    { obj: chip(), r: 3.0, speed: -0.28, phase: 2.2, tilt: -0.3, y: -0.9 },
+    { obj: atom(), r: 3.5, speed: 0.22, phase: 4.1, tilt: 0.2, y: 1.6 }
+  ];
+  orbiters.forEach(o => world.add(o.obj));
+
+  /* sparks */
+  const N = 500, pos = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) {
+    const r = 5 + Math.random() * 9, th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
+    pos[i*3] = r * Math.sin(ph) * Math.cos(th); pos[i*3+1] = r * Math.cos(ph) * 0.7; pos[i*3+2] = r * Math.sin(ph) * Math.sin(th) - 4;
+  }
+  const pg = new THREE.BufferGeometry(); pg.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  const sparks = new THREE.Points(pg, new THREE.PointsMaterial({ color: 0xcfc6ff, size: 0.045, transparent: true, opacity: 0.8 }));
+  scene.add(sparks);
+
+  /* interaction: look at pointer, drag to spin */
+  let tx = 0, ty = 0, spin = 0, spinV = 0, dragging = false, lastX = 0;
+  window.addEventListener("pointermove", e => {
+    tx = (e.clientX / window.innerWidth) * 2 - 1;
+    ty = (e.clientY / window.innerHeight) * 2 - 1;
+    if (dragging) { spinV = (e.clientX - lastX) * 0.01; spin += spinV; lastX = e.clientX; }
+  }, { passive: true });
+  canvas.addEventListener("pointerdown", e => { dragging = true; lastX = e.clientX; canvas.style.cursor = "grabbing"; });
+  window.addEventListener("pointerup", () => { dragging = false; canvas.style.cursor = "grab"; });
+
+  function resize(){
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+    camera.position.z = w < 420 ? 11.8 : 10.5;
+  }
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas); else window.addEventListener("resize", resize);
+  resize();
+
+  let visible = true;
+  if (window.IntersectionObserver) new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) loop(); }).observe(canvas);
+
+  const clock = new THREE.Clock(); let nextBlink = 2.5, running = false;
+  function frame(t){
+    robot.position.y = Math.sin(t * 1.4) * 0.14 + 0.25;
+    if (!dragging) { spinV *= 0.94; spin += spinV; }
+    robot.rotation.y += ((tx * 0.55 + spin) - robot.rotation.y) * 0.08;
+    robot.rotation.x += ((ty * 0.22) - robot.rotation.x) * 0.08;
+    head.rotation.z = Math.sin(t * 0.9) * 0.05;
+    star.rotation.y = t * 1.8; star.rotation.x = t * 0.7;
+    ring.rotation.z = t * 0.25;
+    chest.material.color.setHSL(0.88 + Math.sin(t * 2) * 0.04, 1, 0.62);
+    orbiters.forEach(o => {
+      const a = t * o.speed + o.phase;
+      o.obj.position.set(Math.cos(a) * o.r, o.y + Math.sin(a) * o.tilt, Math.sin(a) * o.r * 0.55);
+      o.obj.rotation.x = t * 0.8; o.obj.rotation.y = t * 1.1;
+    });
+    sparks.rotation.y = t * 0.02;
+    if (t > nextBlink) { const k = Math.min(1, (t - nextBlink) / 0.14); eyes.forEach(e => e.scale.y = k < 0.5 ? 1 - k * 1.8 : 0.1 + (k - 0.5) * 1.8); if (k >= 1) { eyes.forEach(e => e.scale.y = 1); nextBlink = t + 2.5 + Math.random() * 3; } }
+    renderer.render(scene, camera);
+  }
+  function loop(){
+    if (running) return; running = true;
+    (function tick(){
+      if (!visible) { running = false; return; }
+      frame(clock.getElapsedTime());
+      requestAnimationFrame(tick);
+    })();
+  }
+  if (reduce) { frame(0.6); window.addEventListener("resize", () => frame(0.6)); }
+  else loop();
+})();
+</script>
+</body>
+</html>
